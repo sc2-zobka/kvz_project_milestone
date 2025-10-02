@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Custom permission checkbox -->
+    <record id="view_users_form_inherit_milestone" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.milestone</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <!-- Add checkbox in Technical Settings section -->
+            <xpath expr="//page[@name='access_rights']//group[@name='technical_settings']"
+                position="inside">
+                <field name="in_group_kvz_project_milestone_group_my_milestones_manager"
+                    string="My Milestones Manager"
+                    attrs="{'invisible': [('share', '=', True)]}" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- New Custom Group: My Milestones Manager -->
+        <record id="group_my_milestones_manager" model="res.groups">
+            <field name="name">My Milestones Manager</field>
+            <field name="category_id" ref="base.module_category_project"/>
+            <field name="implied_ids" eval="[(4, ref('project.group_project_user'))]"/>
+            <field name="comment">Users can manage milestones from their own projects only</field>
+        </record>
+
+    </data>
+    
+    <data noupdate="1">
+        
+        <!-- Record Rule: ONLY for users with the custom group -->
+        <record id="project_milestone_own_projects_rule" model="ir.rule">
+            <field name="name">My Projects Milestones Only</field>
+            <field name="model_id" ref="project.model_project_milestone"/>
+            <field name="domain_force">[('project_id.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_my_milestones_manager'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

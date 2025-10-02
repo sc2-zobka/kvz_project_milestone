@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Tree View -->
+    <record id="view_project_milestone_manager_tree" model="ir.ui.view">
+        <field name="name">project.milestone.manager.tree</field>
+        <field name="model">project.milestone</field>
+        <field name="arch" type="xml">
+            <tree string="My Milestones" 
+                  default_order="deadline asc"
+                  decoration-success="is_reached == True"
+                  decoration-warning="deadline and deadline &lt; current_date and is_reached == False"
+                  decoration-muted="is_reached == True">
+                <field name="name" string="Milestone"/>
+                <field name="project_id" string="Project"/>
+                <field name="deadline" string="Deadline"/>
+                <field name="is_reached" string="Reached" widget="boolean_toggle"/>
+                <field name="project_manager_id" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_project_milestone_manager_form" model="ir.ui.view">
+        <field name="name">project.milestone.manager.form</field>
+        <field name="model">project.milestone</field>
+        <field name="arch" type="xml">
+            <form string="Milestone">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                        </group>
+                        <group>
+                            <field name="deadline"/>
+                            <field name="is_reached"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_project_milestone_manager" model="ir.actions.act_window">
+        <field name="name">My Milestones</field>
+        <field name="res_model">project.milestone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_project_milestone_manager_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_project_milestone_manager_form')})]"/>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No milestones found
+            </p>
+            <p>
+                You'll see milestones from projects where you are the project manager.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu - WITH CORRECT MODULE NAME -->
+    <menuitem id="menu_project_milestone_manager"
+              name="My Milestones"
+              parent="project.menu_main_pm"
+              action="action_project_milestone_manager"
+              sequence="20"
+              groups="kvz_project_milestone.group_my_milestones_manager"/>
+
+</odoo>
