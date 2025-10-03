@@ -19,8 +19,7 @@
     ],
     'data': [
         # Security
-        'security/project_milestone_security.xml',
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         
         # Views
         'views/project_milestone_views.xml',

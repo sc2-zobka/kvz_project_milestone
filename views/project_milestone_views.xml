@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Tree View -->
+    <!-- Inherit Tree View -->
     <record id="view_project_milestone_manager_tree" model="ir.ui.view">
-        <field name="name">project.milestone.manager.tree</field>
+        <field name="name">project.milestone.manager.tree.inherit</field>
         <field name="model">project.milestone</field>
+        <field name="inherit_id" ref="project.project_milestone_view_tree" />
         <field name="arch" type="xml">
-            <tree string="My Milestones"
-                default_order="deadline asc"
-                decoration-success="is_reached == True"
-                decoration-warning="deadline and deadline &lt; current_date and is_reached == False"
-                decoration-muted="is_reached == True">
-                <field name="name" string="Milestone" />
-                <field name="project_id" string="Project" />
-                <field name="deadline" string="Deadline" />
-                <field name="is_reached" string="Reached" widget="boolean_toggle" />
-                <field name="project_manager_id" column_invisible="0" />
-            </tree>
+            <xpath expr="//field[@name='is_reached']" position="after">
+                <field name="project_manager_id" optional="show" />
+            </xpath>
         </field>
     </record>
 
-    <!-- Form View -->
+    <!-- Inherit Form View -->
     <record id="view_project_milestone_manager_form" model="ir.ui.view">
-        <field name="name">project.milestone.manager.form</field>
+        <field name="name">project.milestone.manager.form.inherit</field>
         <field name="model">project.milestone</field>
+        <field name="inherit_id" ref="project.project_milestone_view_form" />
         <field name="arch" type="xml">
-            <form string="Milestone">
-                <sheet>
-                    <group>
-                        <group>
-                            <field name="name" />
-                            <field name="project_id" />
-                        </group>
-                        <group>
-                            <field name="deadline" />
-                            <field name="is_reached" />
-                        </group>
-                    </group>
-                </sheet>
-            </form>
+            <xpath expr="//group[@name='main_details']" position="inside">
+                <field name="project_manager_id" readonly="1" />
+            </xpath>
         </field>
     </record>
 
@@ -47,10 +30,6 @@
         <field name="name">My Milestones</field>
         <field name="res_model">project.milestone</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-            eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_project_milestone_manager_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_project_milestone_manager_form')})]" />
         <field name="context">{}</field>
         <field name="domain">[('project_manager_id', '=', uid)]</field>
         <field name="help" type="html">
@@ -68,10 +47,6 @@
         <field name="name">All Milestones</field>
         <field name="res_model">project.milestone</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_ids"
-            eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_project_milestone_manager_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_project_milestone_manager_form')})]" />
         <field name="context">{}</field>
         <field name="domain">[]</field>
         <field name="help" type="html">
@@ -79,7 +54,8 @@
                 No milestones found
             </p>
             <p>
-                You'll see milestones from all projects you can access.</p>
+                You'll see milestones from all projects you can access.
+            </p>
         </field>
     </record>
 
@@ -95,13 +71,13 @@
         parent="menu_project_milestone_manager"
         action="action_project_own_milestones"
         sequence="10"
-        groups="kvz_project_milestone.group_my_milestones_manager" />
+    />
 
     <menuitem id="menu_project_milestone_all"
         name="All Milestones"
         parent="menu_project_milestone_manager"
         action="action_project_milestone_all"
         sequence="20"
-        groups="project.group_project_manager" />
+    />
 
 </odoo>

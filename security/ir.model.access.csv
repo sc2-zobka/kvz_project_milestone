@@ -1,2 +1,1 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_project_milestone_my_manager,project.milestone.my.manager,project.model_project_milestone,kvz_project_milestone.group_my_milestones_manager,1,1,1,1
