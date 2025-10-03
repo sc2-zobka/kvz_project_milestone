@@ -42,8 +42,8 @@
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_project_milestone_manager" model="ir.actions.act_window">
+    <!-- Actions Own Milestones -->
+    <record id="action_project_own_milestones" model="ir.actions.act_window">
         <field name="name">My Milestones</field>
         <field name="res_model">project.milestone</field>
         <field name="view_mode">tree,form</field>
@@ -63,12 +63,45 @@
         </field>
     </record>
 
+    <!-- Actions All Milestones -->
+    <record id="action_project_milestone_all" model="ir.actions.act_window">
+        <field name="name">All Milestones</field>
+        <field name="res_model">project.milestone</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_project_milestone_manager_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_project_milestone_manager_form')})]" />
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No milestones found
+            </p>
+            <p>
+                You'll see milestones from all projects you can access.</p>
+        </field>
+    </record>
+
 
     <menuitem id="menu_project_milestone_manager"
         name="Milestones"
         parent="project.menu_main_pm"
-        action="action_project_milestone_manager"
         sequence="20"
+        groups="project.group_project_manager" />
+
+    <menuitem id="menu_project_own_milestones"
+        name="My Milestones"
+        parent="menu_project_milestone_manager"
+        action="action_project_own_milestones"
+        sequence="10"
         groups="kvz_project_milestone.group_my_milestones_manager" />
+
+    <menuitem id="menu_project_milestone_all"
+        name="All Milestones"
+        parent="menu_project_milestone_manager"
+        action="action_project_milestone_all"
+        sequence="20"
+        groups="project.group_project_manager" />
 
 </odoo>
