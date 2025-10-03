@@ -24,7 +24,6 @@
         
         # Views
         'views/project_milestone_views.xml',
-        'views/res_users_views.xml'
     ],
     'installable': True,
     'application': False,

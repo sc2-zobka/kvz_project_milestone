@@ -15,7 +15,7 @@
                 <field name="project_id" string="Project"/>
                 <field name="deadline" string="Deadline"/>
                 <field name="is_reached" string="Reached" widget="boolean_toggle"/>
-                <field name="project_manager_id" column_invisible="1"/>
+                <field name="project_manager_id" column_invisible="0"/>
             </tree>
         </field>
     </record>
@@ -62,9 +62,9 @@
         </field>
     </record>
 
-    <!-- Menu - WITH CORRECT MODULE NAME -->
+   
     <menuitem id="menu_project_milestone_manager"
-              name="My Milestones"
+              name="Milestones"
               parent="project.menu_main_pm"
               action="action_project_milestone_manager"
               sequence="20"
