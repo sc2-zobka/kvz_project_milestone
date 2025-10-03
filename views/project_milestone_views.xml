@@ -20,7 +20,7 @@
         <field name="inherit_id" ref="project.project_milestone_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//group[@name='main_details']" position="inside">
-                <field name="project_manager_id" readonly="1" />
+                <field name="project_manager_id" readonly="1" invisible="not id" />
             </xpath>
         </field>
     </record>
