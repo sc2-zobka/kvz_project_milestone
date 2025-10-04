@@ -15,7 +15,7 @@
     'website': 'https://www.yourcompany.com',
     'license': 'LGPL-3',
     'depends': [
-        'project',
+        'project','sale_management','kvz_backlog'
     ],
     'data': [
         # Security
@@ -23,6 +23,7 @@
         
         # Views
         'views/project_milestone_views.xml',
+        'views/sale_order_line_views.xml',
     ],
     'installable': True,
     'application': False,
