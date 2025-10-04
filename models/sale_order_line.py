@@ -8,6 +8,7 @@ class SaleOrderLine(models.Model):
     milestone_id = fields.Many2one(
         comodel_name='project.milestone',
         string='Milestone',
+        readonly=True,
         help='Milestone associated with this sale order line',
     )
     
