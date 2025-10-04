@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "kvz_project_milestone",
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'category': 'Project',
     'summary': 'Extended milestone management for project managers',
     'description': """
